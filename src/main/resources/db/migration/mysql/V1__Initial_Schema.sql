@@ -16,22 +16,11 @@ CREATE TABLE IF NOT EXISTS users (
     is_deleted BOOLEAN NOT NULL DEFAULT FALSE
 );
 
--- Check if index exists before dropping (MySQL workaround)
-SET @exist_idx_user_username = (SELECT COUNT(1) FROM information_schema.statistics WHERE table_name = 'users' AND index_name = 'idx_user_username');
-SET @drop_stmt1 = IF(@exist_idx_user_username, 'DROP INDEX idx_user_username ON users', 'SELECT 1');
-PREPARE stmt FROM @drop_stmt1;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @exist_idx_user_email = (SELECT COUNT(1) FROM information_schema.statistics WHERE table_name = 'users' AND index_name = 'idx_user_email');
-SET @drop_stmt2 = IF(@exist_idx_user_email, 'DROP INDEX idx_user_email ON users', 'SELECT 1');
-PREPARE stmt FROM @drop_stmt2;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
--- Create indexes
-CREATE INDEX idx_user_username ON users(username);
-CREATE INDEX idx_user_email ON users(email);
+-- Create indexes (without trying to drop first)
+-- The UNIQUE constraints above already create indexes, so these may be redundant
+-- If you need these specific index names, uncomment the following lines:
+-- CREATE INDEX idx_user_username ON users(username);
+-- CREATE INDEX idx_user_email ON users(email);
 
 -- Create roles table
 CREATE TABLE IF NOT EXISTS roles (
