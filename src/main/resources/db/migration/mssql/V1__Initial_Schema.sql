@@ -158,7 +158,7 @@ IF NOT EXISTS (SELECT 1 FROM [users] WHERE [username] = 'admin')
 BEGIN
     INSERT INTO [users] ([username], [first_name], [last_name], [email], [password_hash], [is_active], [account_non_locked], [last_password_change_date])
     VALUES ('admin', 'System', 'Administrator', 'admin@example.com', 
-           '$2a$12$HsAFTBgBVNNyKOZnETZxJeuQbYjkKj.y.bXAgZ3LPsZiV9UHjXMd.', -- 'password123' hashed with BCrypt
+           '$2a$12$OGP/3aAvVyZDfAPG8Kc7POfqtRygm7lEtEzKBJouQXsTy17Y4JMPq', -- 'password123' hashed with BCrypt
            1, 1, GETDATE())
 END
 GO

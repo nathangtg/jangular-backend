@@ -84,7 +84,7 @@ WHERE NOT EXISTS (SELECT 1 FROM roles WHERE name = 'ROLE_MANAGER');
 -- Insert admin user if not exists
 INSERT INTO users (username, first_name, last_name, email, password_hash, is_active, account_non_locked, last_password_change_date)
 SELECT 'admin', 'System', 'Administrator', 'admin@example.com', 
-       '$2a$12$HsAFTBgBVNNyKOZnETZxJeuQbYjkKj.y.bXAgZ3LPsZiV9UHjXMd.', -- 'password123' hashed with BCrypt
+       '$2a$12$OGP/3aAvVyZDfAPG8Kc7POfqtRygm7lEtEzKBJouQXsTy17Y4JMPq', -- 'password123' hashed with BCrypt
        TRUE, TRUE, CURRENT_TIMESTAMP
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
